@@ -426,14 +426,8 @@ function GetJavascriptIndent()
   " add indent depending on the bracket type.
   if line =~ '[[({]'
     let counts = s:LineHasOpeningBrackets(lnum)
-    if counts[0] == '1' && searchpair('(', '', ')', 'bW', s:skip_expr) > 0
-      if col('.') + 1 == col('$')
+    if counts[0] == '1' || counts[1] == '1' || counts[2] == '1'
         return ind + &sw
-      else
-        return virtcol('.')
-      endif
-    elseif counts[1] == '1' || counts[2] == '1'
-      return ind + &sw
     else
       call cursor(v:lnum, vcol)
     end
